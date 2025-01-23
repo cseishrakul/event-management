@@ -1,0 +1,30 @@
+{% extends "layout/layout.html" %}{% load static %} {% block events %}
+<!-- Events Section -->
+<section id="events" class="py-20">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 px-2 gap-6 mb-12">
+    <div class="">
+      <img
+        src="{% static 'img/event.jpeg' %}"
+        class="w-50 rounded-xl shadow-xl"
+        alt=""
+      />
+    </div>
+    <div class="">
+      <h2 class="text-4xl font-semibold text-white mb-4 text-center">
+        {{events.name}}
+      </h2>
+      <hr />
+      <p class="text-lg text-gray-400">{{events.description}}</p>
+      <p class="text-lg text-white"><b>Location: </b> {{events.location}}</p>
+      <p class="text-lg text-white"><b>Date: </b> {{events.date}}</p>
+      <p class="text-lg text-white"><b>Time: </b> {{events.time}}</p>
+    </div>
+  </div>
+  <div
+    class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-4"
+  >
+    <!-- Event 1 -->
+  </div>
+</section>
+
+{% endblock events %}

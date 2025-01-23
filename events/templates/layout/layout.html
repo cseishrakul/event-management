@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+  </head>
+  <body class="bg-gray-700">
+    <!-- Navbar -->
+    <nav class="bg-gray-800 text-white shadow-lg">
+      <div
+        class="max-w-7xl mx-auto px-4 py-5 flex justify-between items-center"
+      >
+        <a href="/" class="text-2xl font-bold">I-Management</a>
+        <div class="space-x-6 hidden md:flex">
+          <a href="" class="hover:text-gray-300">Home</a>
+          <a href="#events" class="hover:text-gray-300">Events</a>
+          <a href="#about" class="hover:text-gray-300">About Us</a>
+          <a href="#contact" class="hover:text-gray-300">Contact</a>
+        </div>
+        <div class="space-x-6 hidden md:flex">
+          <a href="{% url 'dashboard' %}" class="hover:text-gray-300 mt-1"
+            >Dashboard</a
+          >
+          <a href="https://ishrakul-islam.great-site.net" target="_blank" class="">
+            <button
+              class="w-10 h-10 bg-blue-500 rounded-full text-white font-semibold"
+            >
+              B
+            </button>
+          </a>
+        </div>
+        <button class="md:hidden text-white" onclick="toggleMenu()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            class="h-6 w-6"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
+      </div>
+    </nav>
+    <div class="flex gap-6 container mx-auto my-5">
+      <a href="{% url 'show-event' %}" class="text-white bg-rose-500 p-2 rounded-lg"> Events </a>
+      <a href="{% url 'show-category' %}" class="text-white bg-rose-500 p-2 rounded-lg"> Category </a>
+      <a href="{% url 'show-participant' %}" class="text-white bg-rose-500 p-2 rounded-lg"> Participant </a>
+    </div>
+
+    <!-- Events Section -->
+    {% block events %}{% endblock events %}
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-6">
+      <div class="max-w-7xl mx-auto flex justify-between items-center">
+        <p class="mx-auto">
+          &copy; 2025 I-Management.
+          <a href="https://ishrakul-islam.great-site.net" class=""
+            >Md. Ishrakul Islam Efaz</a
+          >
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      function toggleMenu() {
+        const navLinks = document.querySelector(".md\\:flex");
+        navLinks.classList.toggle("hidden");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+{% extends "layout/layout.html" %} {% load static %} {% block events %}
+    <div class="mt-8 w-1/2 mx-auto text-white">
+      <h1 class="text-center text-2xl font-bold mb-2">All Event</h1>
+      <a href="{% url 'create-event' %}">Create</a>
+      <hr />
+      <div class="mt-2">
+        {% if message %}
+        <p class="">{{message}}</p>
+        {% endif %}
+      </div>
+
+      <table class="">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for event in events %}
+            <tr>
+                <td> {{event.name}} </td>
+                <td> {{event.description}} </td>
+                <td>
+                    <a href="{% url 'update-event' event.id %}" class="">Edit</a>
+                    <form action='{% url "delete-event" event.id %}' method='POST'>
+                        {% csrf_token %}
+                        <button type='submit' class="px-2 py-1 bg-red-500">Delete</button>
+                      </form>
+                </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% endblock events %}
