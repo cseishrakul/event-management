@@ -48,7 +48,7 @@ class EventForm(StyledFormMixin, forms.ModelForm):
     participants = forms.ModelMultipleChoiceField(
         queryset=Participant.objects.all(),
         widget=forms.SelectMultiple(attrs={'class': 'border-2 border-gray-300 w-full p-3 rounded-lg'}),
-        required=False  # Optional: Allow events without participants
+        required=False
     )
 
     class Meta:
@@ -71,7 +71,6 @@ class EventForm(StyledFormMixin, forms.ModelForm):
         if commit:
             event.save()
         if event.pk:
-            # Set participants after saving the event
             event.participants.set(self.cleaned_data['participants'])
         return event
 

@@ -15,12 +15,11 @@ def index(request):
     return render(request, 'index.html', context)
 
 def details(request, id):
-    event = Event.objects.prefetch_related('participants').get(id=id)  # Using prefetch_related
+    event = Event.objects.prefetch_related('participants').get(id=id)
     context = {
         'event': event,
     }
     return render(request, 'details.html', context)
-
 
 
 def dashboard(request):
@@ -118,23 +117,13 @@ def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            # Save the event object
             event = form.save()
-
-            # Handle participants
-            participants_ids = request.POST.getlist('participants')  # Get selected participants
-            event.participants.set(participants_ids)  # Link participants to the event
+            participants_ids = request.POST.getlist('participants')
+            event.participants.set(participants_ids)
             event.save()
-
-            # To optimize: Fetch the related category and participants in a single query
-            # Using `select_related` for foreign key fields like `category`
-            # Using `prefetch_related` for many-to-many relationships like `participants`
             event = Event.objects.select_related('category').prefetch_related('participants').get(id=event.id)
-
-            # Now event object will have its related fields already populated
             messages.success(request, 'Event Added Successfully')
             return redirect('show-event')
-
     context = {'form': form}
     return render(request, 'event/create_event.html', context)
 
