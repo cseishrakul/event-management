@@ -44,29 +44,46 @@ class CategoryForm(StyledFormMixin,forms.ModelForm):
         super().__init__(*args,**kwargs)
         self.apply_styled_widgets()
         
-class EventForm(StyledFormMixin,forms.ModelForm):
+class EventForm(StyledFormMixin, forms.ModelForm):
+    participants = forms.ModelMultipleChoiceField(
+        queryset=Participant.objects.all(),
+        widget=forms.SelectMultiple(attrs={'class': 'border-2 border-gray-300 w-full p-3 rounded-lg'}),
+        required=False  # Optional: Allow events without participants
+    )
+
     class Meta:
         model = Event
         fields = ['name', 'description', 'date', 'time', 'location', 'category']
-
         widgets = {
             'date': forms.DateInput(attrs={'type': 'date'}),
-            'time': forms.TimeInput(attrs={'type': 'time',}),
+            'time': forms.TimeInput(attrs={'type': 'time'}),
             'category': forms.Select(attrs={'class': 'border-2 border-gray-300 w-full p-3 rounded-lg'}),
         }
-    ''' Using mixin widget '''
-    def __init__(self,*args,**kwargs):
-        super().__init__(*args,**kwargs)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.apply_styled_widgets()
+        if self.instance.pk:
+            self.fields['participants'].initial = self.instance.participants.all()
+
+    def save(self, commit=True):
+        event = super().save(commit=False)
+        if commit:
+            event.save()
+        if event.pk:
+            # Set participants after saving the event
+            event.participants.set(self.cleaned_data['participants'])
+        return event
+
         
 class ParticipantForm(StyledFormMixin,forms.ModelForm):
     class Meta:
         model = Participant
-        fields = ['name', 'email', 'event_name']
+        fields = ['name', 'email', 'events']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'border-2 border-gray-300 w-full p-3 rounded-lg'}),
             'email': forms.EmailInput(attrs={'class': 'border-2 border-gray-300 w-full p-3 rounded-lg'}),
-            'event_name': forms.CheckboxSelectMultiple(attrs={'class': 'space-y-2'}),
+            'events': forms.CheckboxSelectMultiple(attrs={'class': 'space-y-2'}),
         }
 
     ''' Using mixin widget '''

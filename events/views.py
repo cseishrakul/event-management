@@ -4,38 +4,59 @@ from django.contrib import messages
 from events.forms import CategoryForm,EventForm,ParticipantForm
 from events.models import Category,Event, Participant
 from datetime import date
-
+from django.db.models import Count
 # Create your views here.
 
 def index(request):
-    events = Event.objects.all()
-    context={
-        'events':events
+    events = Event.objects.select_related('category').prefetch_related('participants').all()
+    context = {
+        'events': events
     }
-    return render(request,'index.html',context)
+    return render(request, 'index.html', context)
 
-def details(request,id):
-    events = Event.objects.get(id=id)
-    context={
-        'events':events
+def details(request, id):
+    event = Event.objects.prefetch_related('participants').get(id=id)  # Using prefetch_related
+    context = {
+        'event': event,
     }
-    return render(request,'details.html',context)
+    return render(request, 'details.html', context)
+
+
 
 def dashboard(request):
+    event_data = Event.objects.aggregate(
+        total_events=Count('id'),
+        today_events=Count('id', filter=Q(date=date.today())),
+        category_count=Count('category'),
+        participant_count=Count('participants', distinct=True)  # Corrected query
+    )
     
-    base_event = Event.objects.all()
-    events = base_event.count()
-    today_event = Event.objects.filter(date=date.today())
-    category = Category.objects.all().count()
-    participant = Participant.objects.all().count()
-    context={
-        'events':events,
-        'category':category,
-        'participant':participant,
-        'base_events':base_event,
-        'today_event':today_event
+    past_events_count = Event.objects.filter(date__lt=date.today()).count()
+    upcoming_events_count = Event.objects.filter(date__gt=date.today()).count()
+    all_events = Event.objects.all()
+
+    event_type = request.GET.get('type', None)
+    
+    if event_type == 'past':
+        filtered_events = Event.objects.filter(date__lt=date.today())
+    elif event_type == 'upcoming':
+        filtered_events = Event.objects.filter(date__gt=date.today())
+    else:
+        filtered_events = all_events
+
+    context = {
+        'events': event_data['total_events'],
+        'category': event_data['category_count'],
+        'participant': event_data['participant_count'],
+        'past_events': past_events_count,
+        'upcoming_events': upcoming_events_count,
+        'base_events': Event.objects.prefetch_related('category').all(),
+        'today_event': Event.objects.filter(date=date.today()),
+        'total_events': filtered_events
     }
-    return render(request,'dashboard/dashboard.html',context)
+
+    return render(request, 'dashboard/dashboard.html', context)
+
 
 
 def show_category(request):
@@ -97,11 +118,25 @@ def create_event(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            # Save the event object
+            event = form.save()
+
+            # Handle participants
+            participants_ids = request.POST.getlist('participants')  # Get selected participants
+            event.participants.set(participants_ids)  # Link participants to the event
+            event.save()
+
+            # To optimize: Fetch the related category and participants in a single query
+            # Using `select_related` for foreign key fields like `category`
+            # Using `prefetch_related` for many-to-many relationships like `participants`
+            event = Event.objects.select_related('category').prefetch_related('participants').get(id=event.id)
+
+            # Now event object will have its related fields already populated
             messages.success(request, 'Event Added Successfully')
             return redirect('show-event')
-    context={'form':form}
-    return render(request,'event/create_event.html',context)
+
+    context = {'form': form}
+    return render(request, 'event/create_event.html', context)
 
 def update_event(request,id):
     form = Event.objects.get(id=id)

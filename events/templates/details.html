@@ -1,4 +1,6 @@
-{% extends "layout/layout.html" %}{% load static %} {% block events %}
+{% extends "layout/layout.html" %}{% load static %}
+
+{% block events %}
 <!-- Events Section -->
 <section id="events" class="py-20">
   <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 px-2 gap-6 mb-12">
@@ -11,20 +13,27 @@
     </div>
     <div class="">
       <h2 class="text-4xl font-semibold text-white mb-4 text-center">
-        {{events.name}}
+        {{ event.name }}
       </h2>
       <hr />
-      <p class="text-lg text-gray-400">{{events.description}}</p>
-      <p class="text-lg text-white"><b>Location: </b> {{events.location}}</p>
-      <p class="text-lg text-white"><b>Date: </b> {{events.date}}</p>
-      <p class="text-lg text-white"><b>Time: </b> {{events.time}}</p>
+      <p class="text-white mb-4"><b>Category:</b> {{ event.category }}</p>
+      <p class="text-lg text-white">{{ event.description }}</p>
+      <p class="text-lg text-white"><b>Location: </b> {{ event.location }}</p>
+      <p class="text-lg text-white"><b>Date: </b> {{ event.date }}</p>
+      <p class="text-lg text-white"><b>Time: </b> {{ event.time }}</p>
+
+      <p class="text-white mb-4">
+        <b>Participants:</b>
+        {% if event.participants.all %}
+          {% for participant in event.participants.all %}
+            {% if not forloop.first %}, {% endif %}
+            {{ participant.name }}
+          {% endfor %}
+        {% else %}
+          No participants yet.
+        {% endif %}
+      </p>
     </div>
   </div>
-  <div
-    class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-4"
-  >
-    <!-- Event 1 -->
-  </div>
 </section>
-
 {% endblock events %}
