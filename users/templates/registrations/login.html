@@ -1,0 +1,20 @@
+{% extends "layout/layout.html" %} {% block events %}
+<div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mx-auto my-5">
+  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">User Login</h1>
+  <hr class="mb-4 border-gray-300" />
+
+  {% if messages %} {% for message in messages %}
+  <div
+    class="px-4 py-2 mb-4 text-white text-center rounded-md {% if message.tags == 'success' %} bg-green-500 {% else %} bg-red-500 {% endif %}"
+  >
+    {{ message }}
+  </div>
+  {% endfor %} {% endif %}
+  <form action="" method="POST">
+    {% csrf_token %} {{form}}
+    <button type="submit" class="bg-blue-500 text-white p-2 w-full rounded-lg">
+      Sign in
+    </button>
+  </form>
+</div>
+{% endblock events %}
