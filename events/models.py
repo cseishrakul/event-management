@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 class Event(models.Model):
     name = models.CharField(max_length=250)
@@ -8,6 +9,7 @@ class Event(models.Model):
     time = models.TimeField()
     location = models.CharField(max_length=250)
     category = models.ForeignKey('Category', on_delete=models.CASCADE, default=1)
+    image = models.ImageField(upload_to='event_tasks',blank=True,null=True,default='event_tasks/default.jpg')
     
     def __str__(self):
         return self.name
@@ -29,3 +31,6 @@ class Category(models.Model):
     description = models.TextField()
     def __str__(self):
         return self.name
+    
+
+

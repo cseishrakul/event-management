@@ -7,7 +7,7 @@
     <p class="">{{message}}</p>
     {% endif %}
   </div>
-  <form method="POST">
+  <form method="POST" enctype="multipart/form-data">
     {% csrf_token %} {{form.as_p}}
     <button
       class="bg-rose-600 px-3 py-2 text-white rounded-lg my-2 w-full"

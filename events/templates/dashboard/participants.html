@@ -1,0 +1,22 @@
+{% extends "layout/layout.html" %}
+
+{% block content %}
+  <div class="container mx-auto my-5">
+    <h1 class="text-3xl font-semibold mb-4">All Participants</h1>
+    <div class="bg-white rounded-xl p-6 shadow-sm">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 border-b border-gray-100 text-sm text-gray-500">
+        <div class="font-medium">Name</div>
+        <div class="font-medium">Email</div>
+      </div>
+      
+      {% for participant in all_participants %}
+        <div class="divide-y divide-gray-100">
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 gap-4 items-center">
+            <div>{{ participant.name }}</div>
+            <div>{{ participant.email }}</div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

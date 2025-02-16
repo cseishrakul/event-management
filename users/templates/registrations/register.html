@@ -1,0 +1,53 @@
+{% extends "layout/layout.html" %} {% block events %}
+<div class="container mx-auto my-4">
+  <h1 class="text-center text-white font-bold text-3xl mb-2">
+    User Registration
+  </h1>
+  <hr class="mb-4 border-gray-500" />
+  {% if messages %} {% for message in messages %}
+  <div
+    class="px-3 py-2 mb-3 text-white rounded-md {% if message.tags == 'success' %} bg-green-600 {% else %} bg-red-600 {% endif %}"
+  >
+    {{ message }}
+  </div>
+  {% endfor %} {% endif %}
+  <form
+    action=""
+    method="POST"
+    class="w-full md:w-1/2 mx-auto my-5 border rounded-lg shadow-md p-5 bg-gray-800"
+  >
+    {% csrf_token %}
+    {% if form.non_field_errors %}
+    <div class="text-red-500 mb-3">
+      <ul>
+        {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+    {% for field in form %}
+    <div class="mb-4">
+      <label
+        for="{{ field.id_for_label }}"
+        class="text-white font-semibold block mb-1"
+        >{{ field.label }}</label
+      >
+      {{ field }} {% if field.errors %}
+      <ul class="text-red-500 text-sm mt-1">
+        {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <button
+      type="submit"
+      class="bg-red-500 p-2 text-white rounded-lg w-full mt-2 hover:bg-red-600"
+    >
+      Sign Up
+    </button>
+  </form>
+</div>
+{% endblock events %}
