@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from django.db.models import Q, Count, Max, Min, Avg
+from django.db.models import Q, Count
 from django.contrib import messages
 from events.forms import CategoryForm,EventForm,ParticipantForm
 from events.models import Category,Event, Participant
@@ -206,15 +206,19 @@ def update_participant(request,id):
     return render(request, 'participant/create_participant.html', context)
 
 @login_required
-@permission_required('events.delete_participant',login_url='no-permission')
-def delete_participant(request,id):
-    if request.method == 'POST':
+@permission_required('events.delete_participant', login_url='no-permission')
+def delete_participant(request, id):
+    try:
         participant = Participant.objects.get(id=id)
+        participant.events.clear()
         participant.delete()
         messages.success(request, 'Participant Deleted Successfully')
         return redirect('show-participant')
-    else:
-        messages.error(request, 'Something went wrong')
+    except Participant.DoesNotExist:
+        messages.error(request, 'Participant not found')
+        return redirect('show-participant')
+    except Exception as e:
+        messages.error(request, f"Something went wrong: {e}")
         return redirect('show-participant')
     
 @login_required
