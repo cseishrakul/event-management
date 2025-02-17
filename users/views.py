@@ -2,12 +2,11 @@ from django.shortcuts import render,redirect,HttpResponse
 from django.contrib.auth.models import User,Group
 from users.forms import CustomRegistrationForm,LoginForm,AssignRoleForm,CreateGroupForm
 from django.contrib import messages
-from django.contrib.auth import login,logout,authenticate
+from django.contrib.auth import login,logout
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.db.models import Prefetch
 from events.models import Event,Category
-from django.conf import settings
 
 
 # Test for users
@@ -44,17 +43,7 @@ def sign_in(request):
             login(request,user)
             return redirect('home')
     return render(request,'registrations/login.html',{'form':form})
-    # if request.method == 'POST':
-    #     username = request.POST.get('username')
-    #     password = request.POST.get('password')
-
-    #     user = authenticate(username=username,password=password)
-        
-    #     if user is not None:
-    #         login(request,user)
-    #         redirect('home')
-    # return render(request,'registrations/login.html')
-
+    
 @login_required
 def sign_out(request):
     if request.method == 'POST':
