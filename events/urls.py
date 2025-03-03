@@ -1,16 +1,17 @@
 from django.urls import path
-from events.views import create_category, update_category,show_category,delete_category,create_event,show_event,update_event,delete_event,create_participant,show_participant,update_participant,delete_participant
+from events.views import  update_category,delete_category,update_event,delete_event,create_participant,show_participant,update_participant,delete_participant,CategoryListView,CreateCategoryView,ShowEventView,CreateEventView
 
 urlpatterns = [
     # Category
-    path('show-category/',show_category,name='show-category'),
-    path('create-category/',create_category,name='create-category'),
+    path('show-category/',CategoryListView.as_view(),name='show-category'),
+    path('create-category/',CreateCategoryView.as_view(),name='create-category'),
     path('update-category/<int:id>/', update_category, name='update-category'),
     path('delete-category/<int:id>/', delete_category, name='delete-category'),
     
     # Event
-    path('create-event/', create_event, name='create-event'),
-    path('show-event/', show_event, name='show-event'),
+    # path('create-event/', create_event, name='create-event'),
+    path('create-event/', CreateEventView.as_view(), name='create-event'),
+    path('show-event/', ShowEventView.as_view(), name='show-event'),
     path('update-event/<int:id>/', update_event, name='update-event'),
     path('delete-event/<int:id>/', delete_event, name='delete-event'),
     

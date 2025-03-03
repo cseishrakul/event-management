@@ -7,12 +7,19 @@ from datetime import date
 from django.db.models import Count
 from django.contrib.auth.decorators import login_required,user_passes_test,permission_required
 from users.views import is_admin
+from django.views.generic import ListView,CreateView
+from django.views.generic.edit import CreateView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.urls import reverse_lazy
 
 # Organizer test
 def is_organizer(user):
     return user.groups.filter(name='Organizer').exists()
 def is_participant(user):
     return user.groups.filter(name='Participant').exists()
+def is_admin_or_organizer(user):
+    return user.is_superuser or user.groups.filter(name='Organizer').exists()
 
 
 # Create your views here.
@@ -58,26 +65,29 @@ def admin_dashboard(request):
 
     return render(request, 'dashboard/dashboard.html', context)
 
+# Class based view of show category
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(user_passes_test(is_admin_or_organizer, login_url='no-permission'), name='dispatch')
+class CategoryListView(ListView):
+    model = Category
+    template_name = 'category/all_category.html'
+    context_object_name = 'categories'
+
+@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(user_passes_test(is_admin_or_organizer, login_url='no-permission'), name='dispatch')
+class CreateCategoryView(LoginRequiredMixin,CreateView):
+    model = Category
+    form_class = CategoryForm
+    template_name = 'category/create_category.html'
+    success_url = reverse_lazy('show-category')
+    
+    def form_valid(self, form):
+        messages.success(self.request,'Category Added Successfully!')
+        return super().form_valid(form)
 
 
-def show_category(request):
-    categories = Category.objects.all()
-    context={
-        'categories':categories
-    }
-    return render(request,'category/all_category.html',context)
 
-
-def create_category(request):
-    form = CategoryForm()
-    if request.method == 'POST':
-        form = CategoryForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Category Added Successfully')
-            return redirect('show-category')
-    context = {'form':form}
-    return render(request,'category/create_category.html',context)
 
 
 def update_category(request, id):
@@ -106,33 +116,33 @@ def delete_category(request, id):
         return redirect('show-category')
 
 
-# Event
+# Event class based view
 
-@login_required
-@permission_required('events.view_event',login_url='no-permission')
-def show_event(request):
-    events = Event.objects.all()
-    context={
-        'events':events
-    }
-    return render(request,'event/show_event.html',context)
+class ShowEventView(LoginRequiredMixin,PermissionRequiredMixin,ListView):
+    model = Event
+    template_name = 'event/show_event.html'
+    context_object_name = 'events'
+    permission_required = 'events.view_event'
+    login_url = 'no-permission'
 
-@login_required
-@permission_required('events.add_event',login_url='no-permission')
-def create_event(request):
-    form = EventForm()
-    if request.method == 'POST':
-        form = EventForm(request.POST,request.FILES)
-        if form.is_valid():
-            event = form.save()
-            participants_ids = request.POST.getlist('participants')
-            event.participants.set(participants_ids)
-            event.save()
-            event = Event.objects.select_related('category').prefetch_related('participants').get(id=event.id)
-            messages.success(request, 'Event Added Successfully')
-            return redirect('show-event')
-    context = {'form': form}
-    return render(request, 'event/create_event.html', context)
+class CreateEventView(LoginRequiredMixin,PermissionRequiredMixin,CreateView):
+    model = Event
+    form_class = EventForm
+    template_name = 'event/create_event.html'
+    permission_required = 'events.add_event'
+    login_url = 'no-permission'
+    success_url = reverse_lazy('show-event')
+    
+    def form_valid(self,form):
+        event = form.save()
+        participants_ids = self.request.POST.getlist('participants')
+        event.participants.set(participants_ids)
+        event.save()
+        event = Event.objects.select_related('category').prefetch_related('participants').get(id=event.id)
+        messages.success(self.request,'Event Added Successfully!')
+        
+        return super().form_valid(form)
+
 
 @login_required
 @permission_required('events.change_event',login_url='no-permission')

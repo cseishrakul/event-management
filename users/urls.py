@@ -1,5 +1,5 @@
 from django.urls import path
-from users.views import sign_up,sign_in,sign_out,activate_user,admin_dashboard,assign_role,create_group,group_list,dashboard,organizer_dashboard,participant_dashboard
+from users.views import sign_up,sign_in,sign_out,activate_user,admin_dashboard,assign_role,create_group,dashboard,organizer_dashboard,participant_dashboard,GroupListView
 
 urlpatterns = [
     path('dashboard/',dashboard,name='dashboard'),
@@ -10,7 +10,8 @@ urlpatterns = [
     path('admin/dashboard/',admin_dashboard,name='admin-dashboard'),
     path('admin/<int:user_id>/assign-role/',assign_role,name='assign-role'),
     path('admin/create-group/',create_group,name='create-group'),
-    path('admin/group-list/',group_list,name='group-list'),
+    # path('admin/group-list/',group_list,name='group-list'),
+    path('admin/group-list/',GroupListView.as_view(),name='group-list'),
     # Organizer
     path('organizer/dashboard',organizer_dashboard,name='organizer-dashboard'),
     # Participant

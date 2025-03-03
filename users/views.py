@@ -7,6 +7,8 @@ from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth.decorators import login_required,user_passes_test
 from django.db.models import Prefetch
 from events.models import Event,Category
+from django.views.generic import ListView
+from django.utils.decorators import method_decorator
 
 
 # Test for users
@@ -62,6 +64,7 @@ def activate_user(request,user_id,token):
     except User.DoesNotExist:
         return HttpResponse('User not Found!')
 
+
 @user_passes_test(is_admin,login_url='no-permission')
 def admin_dashboard(request):
     users = User.objects.prefetch_related(
@@ -100,10 +103,20 @@ def create_group(request):
             return redirect('create-group')
     return render(request,'admin/create-group.html',{'form':form})
 
-@user_passes_test(is_admin,login_url='no-permission')
-def group_list(request):
-    groups = Group.objects.prefetch_related('permissions').all()
-    return render(request,'admin/group_list.html',{'groups':groups})
+
+# Group class based view
+class GroupListView(ListView):
+    model = Group
+    template_name = 'admin/group_list.html'
+    context_object_name = 'groups'
+    
+    @method_decorator(user_passes_test(is_admin, login_url='no-permission'))
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        return Group.objects.prefetch_related('permissions').all()
+
 
 @login_required
 def dashboard(request):
