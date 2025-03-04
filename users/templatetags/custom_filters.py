@@ -15,5 +15,5 @@ def humanized_date(value):
             return f"Yesterday at {value.strftime('%I:%M %p')}"
         
         else:
-            return f"{value.date().strftime("%B %d")}, {value.strftime('%I:%M %p')}"
+            return f"{value.date().strftime('%B %d')}, {value.strftime('%I:%M %p')}"
     return "No login record available!"
