@@ -1,6 +1,6 @@
 {% extends "layout/layout.html" %} {% block events %}
 <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md mx-auto my-5">
-  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">User Login</h1>
+  <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Update Profile</h1>
   <hr class="mb-4 border-gray-300" />
 
   {% if messages %} {% for message in messages %}
@@ -10,12 +10,11 @@
     {{ message }}
   </div>
   {% endfor %} {% endif %}
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %} {{form}}
     <button type="submit" class="bg-blue-500 text-white p-2 w-full rounded-lg">
-      Sign in
+      Update Profile
     </button>
   </form>
-  <a href="{% url 'password-reset' %}">Forgot Password?</a>
 </div>
 {% endblock events %}

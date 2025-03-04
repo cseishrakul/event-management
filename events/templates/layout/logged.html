@@ -14,15 +14,16 @@
   
       <div class="space-x-6 hidden md:flex items-center">
         <a href="{% url 'dashboard' %}" class="hover:text-gray-300 mt-1">Dashboard</a>
-        <a href="{% url 'ad-dashboard' %}" target="_blank">
-          <button class="w-10 h-10 bg-blue-500 rounded-full text-white font-semibold">{{ user.username|slice:":1" }}</button>
-        </a>
+        <a href="{% url 'profile' %}" class="hover:text-gray-300 mt-1">Profile</a>
         {% if user.is_authenticated %}
           <form action="{% url 'logout' %}" method="POST">
             {% csrf_token %}
             <button type="submit">Logout</button>
           </form>
         {% endif %}
+        <a href="{% url 'ad-dashboard' %}" target="_blank">
+          <button class="w-10 h-10 bg-blue-500 rounded-full text-white font-semibold">{{ user.username|slice:":1" }}</button>
+        </a>
       </div>
   
       <!-- Mobile Menu Button -->
