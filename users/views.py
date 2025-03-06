@@ -12,6 +12,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.views import PasswordChangeView,PasswordResetView,PasswordResetConfirmView
 from django.urls import reverse_lazy
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.core.mail import send_mail
 
 User = get_user_model()
 
@@ -28,17 +30,29 @@ def is_participant(user):
 def sign_up(request):
     form = CustomRegistrationForm()
     if request.method == 'POST':
-        form=CustomRegistrationForm(request.POST)
+        form = CustomRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.set_password(form.cleaned_data.get('password'))
             user.is_active = False
             user.save()
-            messages.success(request, 'A confirmation mail sent. Please check your email!')
+            token = default_token_generator.make_token(user)
+            activation_url = f"{settings.FRONTEND_URL}/users/activate/{user.id}/{token}/"
+
+            subject = 'Activate your account'
+            message = f'Hi {user.username},\n\nPlease activate your account:\n{activation_url}\n\nThank You!'
+            recipient_list = [user.email]
+
+            try:
+                send_mail(subject, message, settings.EMAIL_HOST_USER, recipient_list, fail_silently=False)
+                print(f"Activation email sent to {user.email}")
+            except Exception as e:
+                print(f"Failed to send email: {str(e)}")
+
+            messages.success(request, 'A confirmation mail was sent. Please check your email!')
             return redirect('sign-in')
-        else:
-            print("Form is not valid")
-    return render(request,'registrations/register.html',{'form':form})
+    return render(request, 'registrations/register.html', {'form': form})
+
 
 def sign_in(request):
     form = LoginForm()

@@ -67,14 +67,13 @@ def admin_dashboard(request):
 
 # Class based view of show category
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
-@method_decorator(user_passes_test(is_admin_or_organizer, login_url='no-permission'), name='dispatch')
+@method_decorator(login_required(login_url='sign-in'), name='dispatch')
 class CategoryListView(ListView):
     model = Category
     template_name = 'category/all_category.html'
     context_object_name = 'categories'
 
-@method_decorator(login_required(login_url='login'), name='dispatch')
+@method_decorator(login_required(login_url='sign-in'), name='dispatch')
 @method_decorator(user_passes_test(is_admin_or_organizer, login_url='no-permission'), name='dispatch')
 class CreateCategoryView(LoginRequiredMixin,CreateView):
     model = Category
