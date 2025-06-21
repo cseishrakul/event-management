@@ -60,13 +60,28 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'event_management.wsgi.application'
 
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://event_manager_db_eubp_user:T87jMYyF4pd9TCK96JpCHhC4tumTNaI6@dpg-d1bicbre5dus73elskf0-a.oregon-postgres.render.com/event_manager_db_eubp',
+#         conn_max_age=600,
+#         ssl_require=True
+#     )
+# }
+
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://event_manager_db_eubp_user:T87jMYyF4pd9TCK96JpCHhC4tumTNaI6@dpg-d1bicbre5dus73elskf0-a.oregon-postgres.render.com/event_manager_db_eubp',
-        conn_max_age=600,
-        ssl_require=True
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'event_manager_db_eubp',
+        'USER': 'event_manager_db_eubp_user',
+        'PASSWORD': 'T87jMYyF4pd9TCK96JpCHhC4tumTNaI6',
+        'HOST': 'dpg-d1bicbre5dus73elskf0-a.oregon-postgres.render.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'require',
+        }
+    }
 }
+
 
 
 AUTH_PASSWORD_VALIDATORS = [
