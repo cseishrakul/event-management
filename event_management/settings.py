@@ -63,6 +63,7 @@ WSGI_APPLICATION = 'event_management.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default='postgresql://event_manager_db_jl4i_user:9zI4cwyCK5QB7odhsz8UFJET6gcruJP3@dpg-cv3e6st2ng1s73fv4jm0-a.oregon-postgres.render.com/event_manager_db_jl4i',
+        ssl_require=True
     )
 }
 
