@@ -1,67 +1,316 @@
-{% extends "layout/layout.html" %}{% load static %}
-{% block events %}
-<!-- Hero Section -->
-<section
-  id="home"
-  class="bg-rose-400 text-white h-screen flex items-center justify-center text-center"
->
-  <div class="max-w-3xl mx-auto">
-    <h1 class="md:text-5xl sm:text-3xl font-extrabold mb-4">Welcome to I-Management</h1>
-    <p class="text-xl mb-6">Discover amazing events happening around you</p>
-    <a
-      href="#events"
-      class="bg-white text-gray-600 hover:bg-gray-800 hover:text-white font-semibold py-3 px-8 rounded-lg shadow-lg"
-      >Our Events</a
-    >
+{% extends "layout/layout.html" %} {% load static %} {% block events %}
+
+<section class="home">
+  <div class="content">
+    <h3>Its time to celebrate! the best <span>event organizers</span></h3>
+    <a href="" class="btn">contact us</a>
+  </div>
+
+  <div class="swiper-container home-slider">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="{% static 'images/1.jpg' %}" /></div>
+      <div class="swiper-slide">
+        <img src="{% static 'images/2.jpg' %}" alt="" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'images/3.jpg' %}" alt="" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'images/4.jpg' %}" alt="" />
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Events Section -->
-<section id="events" class="py-20">
-  <div class="max-w-7xl mx-auto text-center mb-12">
-    <h2 class="text-4xl font-semibold text-white mb-4">Our Events</h2>
-    <p class="text-lg text-gray-400">Get ready for exciting events!</p>
-  </div>
-  <div
-    class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-4"
-  >
-    <!-- Event 1 -->
-    {% for event in events %}
-    <div
-      class="bg-white shadow-xl rounded-lg overflow-hidden hover:shadow-2xl transition duration-300"
-    >
-      <div class="p-6">
-        <h3 class="text-2xl font-semibold text-gray-800 mb-4">
-          {{ event.name }}
-        </h3>
-        <p class="text-gray-600 mb-4"> <b>Category:</b> {{ event.category }} </p>
-        <p class="text-gray-600 mb-4"><b>Location:</b> {{ event.location }}</p>
-        <p class="text-gray-600 mb-4"><b>Date:</b> {{ event.date }}</p>
-        <p class="text-gray-600 mb-4"><b>Time:</b> {{ event.time }}</p>
-        
-        <p class="text-gray-600 mb-4">
-          <b>Participants:</b>
-          {% if event.participants.all %}
-      
-                {% for participant in event.participants.all %}
-                  {% if not forloop.first %}, {% endif %}
-                  {{ participant.name }}
-                {% endfor %}
-          {% else %}
-            No participants yet.
-          {% endif %}
-        </p>
-        
+<section class="service" id="service">
+  <h1 class="heading">our <span>services</span></h1>
+  <div class="box-container">
+    <div class="box">
+      <i class="fas fa-map-marker-alt"></i>
+      <h3>veneu selection</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
 
-        <a
-          href="{% url 'details' event.id %}"
-          class="text-rose-600 hover:border hover:border-rose-600 hover:rounded-md hover:p-2 font-semibold"
-          >Learn More</a
-        >
-      </div>
+    <div class="box">
+      <i class="fas fa-envelope"></i>
+      <h3>invitation card</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
+    <div class="box">
+      <i class="fas fa-music"></i>
+      <h3>entertaiment</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
+    <div class="box">
+      <i class="fas fa-utsensils"></i>
+      <h3>food and drinks</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
+    <div class="box">
+      <i class="fas fa-photo-video"></i>
+      <h3>photos and videos</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
+    <div class="box">
+      <i class="fas fa-birthday-cake"></i>
+      <h3>custom food</h3>
+      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
+    </div>
+  </div>
+</section>
+<section class="service" id="events">
+  <h1 class="heading">our <span>events</span></h1>
+
+  <div class="box-container">
+    {% for event in events %}
+    <div class="box">
+      <i class="fas fa-calendar-alt"></i>
+      <h3>{{ event.name }}</h3>
+      <p><b>Category:</b> {{ event.category }}</p>
+      <p><b>Location:</b> {{ event.location }}</p>
+      <p><b>Date:</b> {{ event.date }}</p>
+      <p><b>Time:</b> {{ event.time }}</p>
+      <p>
+        <b>Participants:</b>
+        {% if event.participants.all %}
+          {% for participant in event.participants.all %}
+            {% if not forloop.first %}, {% endif %}
+            {{ participant.name }}
+          {% endfor %}
+        {% else %}
+          No participants yet.
+        {% endif %}
+      </p>
+      <a href="{% url 'details' event.id %}" class="btn">Learn More</a>
     </div>
     {% endfor %}
   </div>
+</section>
+
+<section id="about" class="about">
+  <h1 class="heading"><span>about</span> us</h1>
+  <div class="row">
+    <div class="image">
+      <img src="{% static 'images/1.jpg' %}" alt="" />
+    </div>
+    <div class="content">
+      <h3>we will give a very special celebration for you</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+        corporis dolores eum nostrum mollitia.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+        corporis dolores eum nostrum mollitia.
+      </p>
+      <a href="" class="btn">Contact us</a>
+    </div>
+  </div>
+</section>
+
+<section class="gallery" id="gallery">
+  <h1 class="heading">our <span>gallery</span></h1>
+  <div class="box-container">
+    <div class="box">
+      <img src="{%static 'images/2.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+    <div class="box">
+      <img src="{%static 'images/3.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+    <div class="box">
+      <img src="{%static 'images/4.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+    <div class="box">
+      <img src="{%static 'images/2.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+    <div class="box">
+      <img src="{%static 'images/1.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+    <div class="box">
+      <img src="{%static 'images/2.jpg' %}" alt="" />
+      <h3 class="title">photos and events</h3>
+      <div class="icons">
+        <a href="" class="fas fa-heart"></a>
+        <a href="" class="fas fa-share"></a>
+        <a href="" class="fas fa-eye"></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="price" id="price">
+  <h1 class="heading">our <span>price</span></h1>
+  <div class="box-container">
+    <div class="box">
+      <h3 class="title">for birthdays</h3>
+      <h3 class="amount">$250.99</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> full services</li>
+        <li><i class="fas fa-check"></i> music and photos</li>
+        <li><i class="fas fa-check"></i> food and drinks</li>
+        <li><i class="fas fa-check"></i> invitation card</li>
+      </ul>
+      <a href="" class="btn">Check out</a>
+    </div>
+    <div class="box">
+      <h3 class="title">for weddings</h3>
+      <h3 class="amount">$450.99</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> full services</li>
+        <li><i class="fas fa-check"></i> decorations</li>
+        <li><i class="fas fa-check"></i> music and photos</li>
+        <li><i class="fas fa-check"></i> food and drinks</li>
+        <li><i class="fas fa-check"></i> invitation card</li>
+      </ul>
+      <a href="" class="btn">Check out</a>
+    </div>
+    <div class="box">
+      <h3 class="title">for concert</h3>
+      <h3 class="amount">$650.99</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> full services</li>
+        <li><i class="fas fa-check"></i> music and photos</li>
+        <li><i class="fas fa-check"></i> food and drinks</li>
+        <li><i class="fas fa-check"></i> invitation card</li>
+      </ul>
+      <a href="" class="btn">Check out</a>
+    </div>
+    <div class="box">
+      <h3 class="title">for others</h3>
+      <h3 class="amount">$850.99</h3>
+      <ul>
+        <li><i class="fas fa-check"></i> full services</li>
+        <li><i class="fas fa-check"></i> music and photos</li>
+        <li><i class="fas fa-check"></i> food and drinks</li>
+        <li><i class="fas fa-check"></i> invitation card</li>
+      </ul>
+      <a href="" class="btn">Check out</a>
+    </div>
+  </div>
+</section>
+
+<section class="review">
+  <h1 class="heading">client's <span>review</span></h1>
+  <div class="review-slider swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <h1 class="heading"><span>contact</span> us</h1>
+  <form action="">
+    <div class="inputBox">
+      <input type="text" name="" placeholder="name" id="" />
+      <input type="email" name="" placeholder="email" id="" />
+    </div>
+    <div class="inputBox">
+      <input type="number" name="" placeholder="number" id="" />
+      <input type="text" name="" placeholder="subject" id="" />
+    </div>
+    <textarea
+      name=""
+      placeholder="your message"
+      cols="30"
+      rows="10"
+      id=""
+    ></textarea>
+    <input type="submit" value="send message" class="btn" />
+  </form>
 </section>
 
 {% endblock %}

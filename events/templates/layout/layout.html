@@ -4,10 +4,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home Page</title>
-    <link rel="stylesheet" href="{% static 'css/output.css' %}" />
+    <title>Event Management</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+
+    <link rel="stylesheet" href=" {% static './css/style.css' %}" />
+    
+    <link rel="stylesheet" href=" {% static './css/output.css' %}" />
   </head>
-  <body class="bg-gray-700 flex flex-col min-h-screen">
+    <body class="bg-gray-700 flex flex-col min-h-screen">
     <!-- Navbar -->
     {% if request.user.is_authenticated %} 
       {% include "layout/logged.html" %}
@@ -18,23 +32,79 @@
     <!-- Events Section -->
     {% block events %}{% endblock events %}
 
-    <footer class="bg-gray-800 text-white py-6">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <p class="mx-auto">
-          &copy; 2025 I-Management.
-          <a href="https://ishrakul-islam.great-site.net" class=""
-            >Md. Ishrakul Islam Efaz</a
-          >
-        </p>
+    
+    <section class="footer">
+      <div class="box-container">
+        <div class="box">
+          <h3>branches</h3>
+          <a href=""> <i class="fas fa-map-marker-alt"></i> Dhaka </a>
+          <a href=""> <i class="fas fa-map-marker-alt"></i> Chottogram </a>
+          <a href=""> <i class="fas fa-map-marker-alt"></i> Sylhet </a>
+          <a href=""> <i class="fas fa-map-marker-alt"></i> Khulna </a>
+          <a href=""> <i class="fas fa-map-marker-alt"></i> Rajshahi </a>
+        </div>
+        <div class="box">
+          <h3>quick links</h3>
+          <a href=""> <i class="fas fa-arrow-right"></i> home </a>
+          <a href=""> <i class="fas fa-arrow-right"></i> service </a>
+          <a href=""> <i class="fas fa-arrow-right"></i> about </a>
+          <a href=""> <i class="fas fa-arrow-right"></i> gallery </a>
+          <a href=""> <i class="fas fa-arrow-right"></i> price </a>
+          <a href=""> <i class="fas fa-arrow-right"></i> review </a>
+        </div>
+        <div class="box">
+          <h3>contact info</h3>
+          <a href=""> <i class="fas fa-phone"></i> +8801710101020 </a>
+          <a href=""> <i class="fas fa-phone"></i> +8801810101020 </a>
+          <a href=""> <i class="fas fa-envelope"></i> ishrak@gmail.com </a>
+          <a href=""> <i class="fas fa-envelope"></i> efaz@gmail.com </a>
+          <a href="">
+            <i class="fas fa-map-marker-alt"></i> Sylhet,Bangladesh - 3100
+          </a>
+        </div>
+        <div class="box">
+          <h3>follow us</h3>
+          <a href=""> <i class="fab fa-facebook"></i>facebook </a>
+          <a href=""> <i class="fab fa-twitter"></i>twitter </a>
+          <a href=""> <i class="fab fa-instagram"></i>instagram </a>
+          <a href=""> <i class="fab fa-linkedin"></i>linkedin </a>
+        </div>
       </div>
-    </footer>
+      <div class="credit">
+        created by <span>Md. Ishrakul Islam Efaz</span> | all rights reserved.
+      </div>
+    </section>
 
-    <!-- JavaScript to Toggle Mobile Menu -->
-    <script>
-      function toggleMenu() {
-        const menu = document.getElementById("mobile-menu");
-        menu.classList.toggle("hidden");
-      }
-    </script>
+<div class="theme-toggler">
+    <div class="toggle-btn">
+        <i class="fas fa-cog"></i>
+    </div>
+    <h3>choose color</h3>
+    <div class="buttons">
+        <div class="theme-btn" style="background-color:#3867d6;"></div>
+        <div class="theme-btn" style="background-color:#f7b731;"></div>
+        <div class="theme-btn" style="background-color:#ff0033;"></div>
+        <div class="theme-btn" style="background-color:#20bf6b;"></div>
+        <div class="theme-btn" style="background-color:#fa8231;"></div>
+        <div class="theme-btn" style="background-color:#FC427B;"></div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/scripts.js' %}"></script>
+ 
   </body>
 </html>
