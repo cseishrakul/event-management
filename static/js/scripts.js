@@ -4,8 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const themeToggler = document.querySelector(".theme-toggler");
   const toggleBtn = document.querySelector(".toggle-btn");
 
-  console.log("menu:", menu);
-  console.log("navbar:", navbar);
 
   if (menu && navbar) {
     menu.onclick = () => {
