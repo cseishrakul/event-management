@@ -32,6 +32,12 @@ This is a full-featured **Event Management System** built using **Django's MVT a
 | Participant | Browse and attend events                    |
 
 ---
+## 🌐 Live Demo
+
+✨ You can explore the live version of the project here:  
+👉 **[Event Management on Render](https://event-management-s73r.onrender.com)**
+
+---
 ## 🧑‍💻 Local Setup Instructions
 
 To run this project locally, follow these steps:
@@ -62,4 +68,3 @@ python manage.py runserver
 # 7. Open in browser
 # Visit: http://127.0.0.1:8000
 
-Demo Explore the live demo here: [Event Management](https://event-management-s73r.onrender.com)
