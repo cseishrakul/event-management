@@ -1,53 +1,121 @@
-{% extends "layout/layout.html" %} {% block events %}
-<div class="container mx-auto my-4">
-  <h1 class="text-center text-white font-bold text-3xl mb-2">
-    User Registration
-  </h1>
-  <hr class="mb-4 border-gray-500" />
-  {% if messages %} {% for message in messages %}
-  <div
-    class="px-3 py-2 mb-3 text-white rounded-md {% if message.tags == 'success' %} bg-green-600 {% else %} bg-red-600 {% endif %}"
-  >
-    {{ message }}
-  </div>
-  {% endfor %} {% endif %}
-  <form
-    action=""
-    method="POST"
-    class="w-full md:w-1/2 mx-auto my-5 border rounded-lg shadow-md p-5 bg-gray-800"
-  >
-    {% csrf_token %}
-    {% if form.non_field_errors %}
-    <div class="text-red-500 mb-3">
-      <ul>
-        {% for error in form.non_field_errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>User Registration</title>
+    <link rel="stylesheet" href="{% static 'css/form.css' %}" />
+  </head>
+  <body>
+    <div class="register-page">
+      <!-- Left side: Registration form -->
+      <div class="register-left">
+        <div class="register-box">
+          <a href="/" class="btnn back-btn">
+            <i class="fas fa-arrow-left"></i> Back to homepage
+          </a>
+          <h1>
+            <a href="/" class="logo"> <span>e</span>vento </a>
+          </h1>
+          <hr />
+          <h2>User Registration</h2>
+
+          {% if messages %} {% for message in messages %}
+          <div
+            class="alert {% if message.tags == 'success' %}success{% else %}error{% endif %}"
+          >
+            {{ message }}
+          </div>
+          {% endfor %} {% endif %}
+
+          <form method="POST">
+            {% csrf_token %} {% if form.non_field_errors %}
+            <div class="alert error">
+              <ul>
+                {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+
+            <!-- Group 1: First Name & Last Name -->
+            <div class="flex-inputs">
+              <div class="form-group">
+                <label for="{{ form.first_name.id_for_label }}"
+                  >{{ form.first_name.label }}</label
+                >
+                {{ form.first_name }} {% for error in form.first_name.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.last_name.id_for_label }}"
+                  >{{ form.last_name.label }}</label
+                >
+                {{ form.last_name }} {% for error in form.last_name.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Group 2: Email & Username -->
+            <div class="flex-inputs">
+              <div class="form-group">
+                <label for="{{ form.email.id_for_label }}"
+                  >{{ form.email.label }}</label
+                >
+                {{ form.email }} {% for error in form.email.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.username.id_for_label }}"
+                  >{{ form.username.label }}</label
+                >
+                {{ form.username }} {% for error in form.username.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+
+            <!-- Group 3: Password1 & Password2 -->
+            <div class="flex-inputs">
+              <div class="form-group">
+                <label for="{{ form.password.id_for_label }}"
+                  >{{ form.password.label }}</label
+                >
+                {{ form.password }} {% for error in form.password.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+              <div class="form-group">
+                <label for="{{ form.confirm_password.id_for_label }}"
+                  >{{ form.confirm_password.label }}</label
+                >
+                {{ form.confirm_password }} {% for error in form.confirm_password.errors %}
+                <p class="field-errors">{{ error }}</p>
+                {% endfor %}
+              </div>
+            </div>
+
+            <button type="submit">Sign Up</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right side: Image & text -->
+      <div class="register-right">
+        <div class="image-wrapper">
+          <img src="{% static 'images/4.jpg' %}" alt="Register Image" />
+          <div class="overlay"></div>
+        </div>
+        <div class="overlay-text">
+          <h2>Join Evento Today!</h2>
+          <p>Create your account and get started with managing your events.</p>
+        </div>
+      </div>
     </div>
-    {% endif %}
-    {% for field in form %}
-    <div class="mb-4">
-      <label
-        for="{{ field.id_for_label }}"
-        class="text-white font-semibold block mb-1"
-        >{{ field.label }}</label
-      >
-      {{ field }} {% if field.errors %}
-      <ul class="text-red-500 text-sm mt-1">
-        {% for error in field.errors %}
-        <li>{{ error }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-    </div>
-    {% endfor %}
-    <button
-      type="submit"
-      class="bg-red-500 p-2 text-white rounded-lg w-full mt-2 hover:bg-red-600"
-    >
-      Sign Up
-    </button>
-  </form>
-</div>
-{% endblock events %}
+  </body>
+</html>

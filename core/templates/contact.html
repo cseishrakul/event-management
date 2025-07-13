@@ -1,0 +1,25 @@
+{% extends "layout/layout.html" %} {% load static %} {% block events %}
+
+<section class="contact">
+  <h1 class="heading"><span>contact</span> us</h1>
+  <form action="">
+    <div class="inputBox">
+      <input type="text" name="" placeholder="name" id="" />
+      <input type="email" name="" placeholder="email" id="" />
+    </div>
+    <div class="inputBox">
+      <input type="number" name="" placeholder="number" id="" />
+      <input type="text" name="" placeholder="subject" id="" />
+    </div>
+    <textarea
+      name=""
+      placeholder="your message"
+      cols="30"
+      rows="10"
+      id=""
+    ></textarea>
+    <input type="submit" value="send message" class="btnn" />
+  </form>
+</section>
+
+{% endblock %}

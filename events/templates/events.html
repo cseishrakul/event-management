@@ -1,0 +1,33 @@
+{% extends "layout/layout.html" %}
+{% load static %}
+
+{% block events %}
+<section class="service" id="events-page">
+  <h1 class="heading">our <span>events</span></h1>
+
+  <div class="box-container">
+    {% for event in events %}
+    <div class="box">
+      <i class="fas fa-calendar-alt"></i>
+      <h3>{{ event.name }}</h3>
+      <p><b>Category:</b> {{ event.category }}</p>
+      <p><b>Location:</b> {{ event.location }}</p>
+      <p><b>Date:</b> {{ event.date }}</p>
+      <p><b>Time:</b> {{ event.time }}</p>
+      <p>
+        <b>Participants:</b>
+        {% for participant in event.participants.all %} 
+          {{ participant.name }}
+          {% if not forloop.last %} 
+          {% endif %} 
+          {% empty %} 
+          No participants yet. 
+          {% endfor %}
+      </p>
+
+      <a href="{% url 'details' event.id %}" class="btnn">Learn More</a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

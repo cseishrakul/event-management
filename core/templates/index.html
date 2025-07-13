@@ -6,7 +6,7 @@
       It's time to celebrate! <br />
       The best <span>event organizers</span>
     </h3>
-    <a href="#contact" class="btnn">Contact Us</a>
+    <a href="/contact" class="btnn">Contact Us</a>
   </div>
 
   <div class="swiper-container home-slider">
@@ -39,7 +39,6 @@
   </div>
 </section>
 
-
 <section class="service" id="service">
   <h1 class="heading">our <span>services</span></h1>
   <div class="box-container">
@@ -60,7 +59,7 @@
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
     </div>
     <div class="box">
-      <i class="fas fa-utsensils"></i>
+      <i class="fa-solid fa-utensils"></i>
       <h3>food and drinks</h3>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
     </div>
@@ -70,7 +69,7 @@
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
     </div>
     <div class="box">
-      <i class="fas fa-birthday-cake"></i>
+      <i class="fa fa-birthday-cake"></i>
       <h3>custom food</h3>
       <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit</p>
     </div>
@@ -90,20 +89,24 @@
       <p><b>Time:</b> {{ event.time }}</p>
       <p>
         <b>Participants:</b>
-        {% if event.participants.all %}
-          {% for participant in event.participants.all %}
-            {% if not forloop.first %}, {% endif %}
-            {{ participant.name }}
-          {% endfor %}
-        {% else %}
+        {% for participant in event.participants.all %}
+          {{ participant.name }}{% if not forloop.last %}, {% endif %}
+        {% empty %}
           No participants yet.
-        {% endif %}
+        {% endfor %}
       </p>
       <a href="{% url 'details' event.id %}" class="btnn">Learn More</a>
     </div>
     {% endfor %}
   </div>
+
+  {% if show_all_button %}
+  <div class="view-all-container">
+    <a href="{% url 'all_events' %}" class="btnn">View All Events</a>
+  </div>
+  {% endif %}
 </section>
+
 
 <section id="about" class="about">
   <h1 class="heading"><span>about</span> us</h1>
@@ -121,7 +124,7 @@
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
         corporis dolores eum nostrum mollitia.
       </p>
-      <a href="" class="btnn">Contact us</a>
+      <a href="/contact" class="btnn">Contact us</a>
     </div>
   </div>
 </section>

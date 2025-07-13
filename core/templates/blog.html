@@ -1,0 +1,61 @@
+{% extends "layout/layout.html" %} {% load static %} {% block events %}
+
+<section class="blog" id="blog">
+  <h1 class="heading">our <span>blogs</span></h1>
+
+  <div class="box-container">
+    <!-- Blog 1 -->
+    <div class="box">
+      <img src="static/images/blog1.jpg" alt="Blog 1" />
+      <h3>Top 10 Event Planning Tips</h3>
+      <p>
+        Learn the secrets to organizing unforgettable events with these practical tips and tricks.
+      </p>
+      <a href="#" class="btnn">Read More</a>
+    </div>
+
+    <!-- Blog 2 -->
+    <div class="box">
+      <img src="static/images/blog2.jpg" alt="Blog 2" />
+      <h3>Wedding Décor Ideas for 2025</h3>
+      <p>
+        Discover elegant and modern wedding decoration themes that are trending this season.
+      </p>
+      <a href="#" class="btnn">Read More</a>
+    </div>
+
+    <!-- Blog 3 -->
+    <div class="box">
+      <img src="static/images/blog3.jpg" alt="Blog 3" />
+      <h3>Budget-Friendly Party Hacks</h3>
+      <p>
+        Host amazing parties without breaking the bank. Here are creative and low-cost ideas.
+      </p>
+      <a href="#" class="btnn">Read More</a>
+    </div>
+  </div>
+</section>
+<section class="contact">
+  <h1 class="heading"><span>contact</span> us</h1>
+  <form action="">
+    <div class="inputBox">
+      <input type="text" name="" placeholder="name" id="" />
+      <input type="email" name="" placeholder="email" id="" />
+    </div>
+    <div class="inputBox">
+      <input type="number" name="" placeholder="number" id="" />
+      <input type="text" name="" placeholder="subject" id="" />
+    </div>
+    <textarea
+      name=""
+      placeholder="your message"
+      cols="30"
+      rows="10"
+      id=""
+    ></textarea>
+    <input type="submit" value="send message" class="btnn" />
+  </form>
+</section>
+
+
+{% endblock %}

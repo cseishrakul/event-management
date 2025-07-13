@@ -1,18 +1,18 @@
-{% extends "layout/layout.html" %} {% load static %} {% block events %}
-    <div class="mt-8 w-1/2 mx-auto text-gray-500">
-        <h1 class="text-center text-white text-2xl font-bold mb-2">Participant Form</h1>
-        <hr/>
-        <div class="mt-2">
-            {% if message %}
-            <p class=""> {{message}} </p>
-            {% endif %}
-        </div>
-        <form method='POST'>
-            {% csrf_token %}
-            {{form.as_p}}
-            <button class='bg-rose-600 px-3 py-2 text-white rounded-lg my-2 w-full' type="submit">Submit</button>
-        </form>
-    </div>
-</body>
-</html>
+{% extends "layout/layout.html" %}
+{% load static %}
+{% block events %}
+<div class="participant-form-container">
+  <h1 class="form-title">Participant Form</h1>
+  <hr />
+  <div class="form-message">
+    {% if message %}
+      <p>{{ message }}</p>
+    {% endif %}
+  </div>
+  <form method="POST" class="participant-form">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="submit-button">Submit</button>
+  </form>
+</div>
 {% endblock events %}

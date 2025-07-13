@@ -1,167 +1,192 @@
-{% extends "layout/layout.html" %} {% load static %} {% block events %}
-<div class="max-w-[1400px] mx-auto my-5 bg-gray-700">
-  <!-- End Header -->
-  <main>
-    <!-- Stats Grid -->
-    <div
-      class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 container mx-auto"
-    >
-      <!-- Total Task -->
-      <a href="{% url 'ad-dashboard' %}?type=all">
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h3 class="text-sm font-medium text-gray-500 mb-4">Total Event</h3>
-          <div class="flex justify-between items-start">
-            <div>
-              <p class="text-3xl font-semibold mb-1">{{events}}</p>
-              <p class="text-gray-500 text-sm">11 last month</p>
-            </div>
-            <div class="bg-blue-100 p-3 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-6 h-6 text-blue-600"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
-      <!-- End Total Task -->
-      <a href="{% url 'ad-dashboard' %}?type=all">
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h3 class="text-sm font-medium text-gray-500 mb-4">
-            Total Participant
-          </h3>
-          <div class="flex justify-between items-start">
-            <div>
-              <p class="text-3xl font-semibold mb-1">{{participant}}</p>
-              <p class="text-gray-500 text-sm">11 last month</p>
-            </div>
-            <div class="bg-yellow-100 p-3 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-6 h-6 text-yellow-600"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
-      <!-- End Total Participant -->
-      <a href="{% url 'ad-dashboard' %}?type=past">
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h3 class="text-sm font-medium text-gray-500 mb-4">
-            Past Events
-          </h3>
-          <div class="flex justify-between items-start">
-            <div>
-              <p class="text-3xl font-semibold mb-1">{{past_events}}</p>
-              <p class="text-gray-500 text-sm">11 last month</p>
-            </div>
-            <div class="bg-green-100 p-3 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-6 h-6 text-green-600"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
-      <!-- End Past Events -->
-      <a href="{% url 'ad-dashboard' %}?type=upcoming">
-        <div class="bg-white rounded-xl p-6 shadow-sm">
-          <h3 class="text-sm font-medium text-gray-500 mb-4">
-            Upcoming Events
-          </h3>
-          <div class="flex justify-between items-start">
-            <div>
-              <p class="text-3xl font-semibold mb-1">{{upcoming_events}}</p>
-              <p class="text-gray-500 text-sm">11 last month</p>
-            </div>
-            <div class="bg-purple-100 p-3 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                class="w-6 h-6 text-purple-600"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round"
-                stroke-width="2" d="M15.666 3.888A2.25 2.25 0 0 0 13.5
-                2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332
-                0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0
-                1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11
-                1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0
-                1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5
-                19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0="true"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </a>
-    </div>
-
-    <div class="text-center text-white">
-      <h1 class="text-4xl">Events</h1>
-      <hr />
-    </div>
-
-    <div class="bg-white rounded-xl shadow-sm container mx-auto my-5">
-      <div
-        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 border-b border-gray-100 text-sm text-gray-500"
-      >
-        <div class="">Event</div>
-        <div class="">Description</div>
-        <div class="">Location</div>
-        <div class="">Time</div>
-      </div>
-
-      {% for event in total_events %}
-      <div class="divide-y divide-gray-100">
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 p-4 gap-4 items-center"
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Even Dashboard</title>
+    <link rel="stylesheet" href=" {% static 'css/admin.css' %}" />
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div class="container">
+        <a href="{% url 'home' %}" class="logo"
+          ><span class=""> e </span> vento</a
         >
-          <div class="flex items-center gap-2">
-            <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-            <div>
-              <span>{{event.name}}</span>
-            </div>
+        <div class="mobile-toggle" id="mobile-toggle">&#9776;</div>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="{% url 'ad-dashboard' %}">Dashboard</a></li>
+          <li><a href="{% url 'admin-dashboard' %}">Role</a></li>
+          <li><a href="{% url 'show-event' %}">Events</a></li>
+          <li><a href="{% url 'show-category' %}">Category</a></li>
+          <li><a href="{% url 'group-list' %}">Groups</a></li>
+          <li><a href="{% url 'create-group' %}">Create Group</a></li>
+        </ul>
+
+        <div class="user-menu-wrapper">
+          <button class="user-button" id="user-button">
+            {{ user.username|slice:":1"|upper }}
+          </button>
+          <div class="user-dropdown" id="user-dropdown">
+            <a href="{% url 'admin-dashboard' %}">Dashboard</a>
+            <form method="post" action="{% url 'logout' %}">
+              {% csrf_token %}
+              <button type="submit">Logout</button>
+            </form>
           </div>
-          <div class="">{{event.description}}</div>
-          <div class="flex -space-x-2">{{event.location}}</div>
-          <div class="">{{event.time}}</div>
         </div>
       </div>
-      {% endfor %}
+    </nav>
+
+    <!-- Main content -->
+    <div class="container">
+      {% block events %}
+      <div class="stats-grid">
+        <a href="{% url 'ad-dashboard' %}?type=all" class="card">
+          <div>
+            <h3>Total Event</h3>
+            <p class="count">{{ events }}</p>
+            <p class="subtext">11 last month</p>
+          </div>
+          <div class="icon-circle icon-blue" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0 0 1 1.927-.184"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <a href="{% url 'ad-dashboard' %}?type=all" class="card">
+          <div>
+            <h3>Total Participant</h3>
+            <p class="count">{{ participant }}</p>
+            <p class="subtext">11 last month</p>
+          </div>
+          <div class="icon-circle icon-yellow" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <a href="{% url 'ad-dashboard' %}?type=past" class="card">
+          <div>
+            <h3>Past Events</h3>
+            <p class="count">{{ past_events }}</p>
+            <p class="subtext">11 last month</p>
+          </div>
+          <div class="icon-circle icon-green" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+              />
+            </svg>
+          </div>
+        </a>
+
+        <a href="{% url 'ad-dashboard' %}?type=upcoming" class="card">
+          <div>
+            <h3>Upcoming Events</h3>
+            <p class="count">{{ upcoming_events }}</p>
+            <p class="subtext">11 last month</p>
+          </div>
+          <div class="icon-circle icon-purple" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              width="24"
+              height="24"
+              aria-hidden="true"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15.666 3.888A2.25 2.25 0 0 0 13.5 2.25h-3c-1.03 0-1.9.693-2.166 1.638m7.332 0c.055.194.084.4.084.612v0a.75.75 0 0 1-.75.75H9a.75.75 0 0 1-.75-.75v0c0-.212.03-.418.084-.612m7.332 0c.646.049 1.288.11 1.927.184 1.1.128 1.907 1.077 1.907 2.185V19.5a2.25 2.25 0 0 1-2.25 2.25H6.75A2.25 2.25 0 0 1 4.5 19.5V6.257c0-1.108.806-2.057 1.907-2.185a48.208 48.208 0=&#34;true&#34;"
+              />
+            </svg>
+          </div>
+        </a>
+      </div>
+
+      <div class="events-header">
+        <h1>Events</h1>
+        <hr />
+      </div>
+
+      <div class="events-table" role="table" aria-label="Events list">
+        <div class="table-header" role="rowgroup">
+          <div role="columnheader">Event</div>
+          <div role="columnheader">Description</div>
+          <div role="columnheader">Location</div>
+          <div role="columnheader">Time</div>
+        </div>
+
+        {% for event in total_events %}
+        <div class="table-row" role="row" style="color:#000;">
+          <div class="event-name" role="cell">
+            <span class="event-status-dot" aria-hidden="true"></span>
+            <span>{{ event.name }}</span>
+          </div>
+          <div role="cell">{{ event.description }}</div>
+          <div role="cell">{{ event.location }}</div>
+          <div role="cell">{{ event.time }}</div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endblock events %}
     </div>
-  </main>
-</div>
-{% endblock events %}
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        &copy; {{ now.year }} Evento. All rights reserved.
+        <br />
+        <a href="{% url 'home' %}">Home</a> |
+        <a href="{% url 'show-event' %}">Events</a> |
+        <a href="">Contact</a>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/admin.js' %}"></script>
+  </body>
+</html>

@@ -1,39 +1,57 @@
-{% extends "layout/layout.html" %}{% load static %}
+{% extends "layout/layout.html" %}
+{% load static %}
 
 {% block events %}
-<!-- Events Section -->
-<section id="events" class="py-20">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 px-2 gap-6 mb-12">
-    <div class="">
-      <img
-        src="{{event.image.url}}"
-        class="w-100 rounded-xl shadow-xl"
-        alt=""
-      />
+<section id="event-details">
+  <div class="container">
+    <div class="image-section">
+      {% if event.image %}
+        <img src="{{ event.image.url }}" alt="{{ event.name }}" />
+      {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="Default Image" />
+      {% endif %}
     </div>
-    <div class="">
-      <h2 class="text-4xl font-semibold text-white mb-4 text-center">
-        {{ event.name }}
-      </h2>
-      <hr />
-      <p class="text-white mb-4"><b>Category:</b> {{ event.category }}</p>
-      <p class="text-lg text-white">{{ event.description }}</p>
-      <p class="text-lg text-white"><b>Location: </b> {{ event.location }}</p>
-      <p class="text-lg text-white"><b>Date: </b> {{ event.date }}</p>
-      <p class="text-lg text-white"><b>Time: </b> {{ event.time }}</p>
 
-      <p class="text-white mb-4">
-        <b>Participants:</b>
+    <div class="details-section">
+      <h2>{{ event.name }}</h2>
+      <hr />
+      <p><strong>Category:</strong> {{ event.category }}</p>
+      <p><strong>Description:</strong> {{ event.description }}</p>
+      <p><strong>Location:</strong> {{ event.location }}</p>
+      <p><strong>Date:</strong> {{ event.date }}</p>
+      <p><strong>Time:</strong> {{ event.time }}</p>
+      <p><strong>Participants:</strong>
         {% if event.participants.all %}
           {% for participant in event.participants.all %}
-            {% if not forloop.first %}, {% endif %}
-            {{ participant.name }}
+            {{ participant.name }}{% if not forloop.last %}, {% endif %}
           {% endfor %}
         {% else %}
           No participants yet.
         {% endif %}
       </p>
+      <a href="{% url 'create-participant' %}" class="btnn">Participate</a>
     </div>
   </div>
 </section>
-{% endblock events %}
+
+{% if related_events %}
+<section class="related-events">
+  <h2>Other {{ event.category }} Events</h2>
+  <div class="related-container">
+    {% for related in related_events %}
+    <div class="related-card">
+      {% if related.image %}
+        <img src="{{ related.image.url }}" alt="{{ related.name }}" />
+      {% else %}
+        <img src="{% static 'images/default.jpg' %}" alt="Default Image" />
+      {% endif %}
+      <h3>{{ related.name }}</h3>
+      <p><b>Date:</b> {{ related.date }}</p>
+      <p><b>Location:</b> {{ related.location }}</p>
+      <a href="{% url 'details' related.id %}" class="btnn">View Details</a>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+{% endblock %}

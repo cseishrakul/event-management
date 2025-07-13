@@ -12,6 +12,7 @@ from django.views.generic.edit import CreateView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 
 # Organizer test
 def is_organizer(user):
@@ -24,11 +25,18 @@ def is_admin_or_organizer(user):
 
 # Create your views here.
 def details(request, id):
-    event = Event.objects.prefetch_related('participants').get(id=id)
-    context = {
+    event = get_object_or_404(Event, id=id)
+    related_events = Event.objects.filter(category=event.category).exclude(id=event.id)
+
+    return render(request, 'details.html', {
         'event': event,
-    }
-    return render(request, 'details.html', context)
+        'related_events': related_events,
+    })
+    
+def all_events(request):
+    events = Event.objects.all()
+    return render(request, 'events.html', {'events': events})
+
 
 @user_passes_test(is_admin,login_url='no-permission')
 def admin_dashboard(request):
@@ -193,7 +201,7 @@ def create_participant(request):
         if form.is_valid():
             form.save()
             messages.success(request, 'ParticipantForm Added Successfully')
-            return redirect('show-participant')
+            return redirect('create-participant')
     context={'form':form}
     return render(request,'participant/create_participant.html',context)
 

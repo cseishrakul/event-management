@@ -1,23 +1,24 @@
-{% extends "admin/dashboard.html" %} {% block content %}
-<h2 class="text-2xl font-bold mb-4">Groups and Permissions</h2>
-<div class="overflow-x-auto">
-  <table class="table-auto w-full border-collapse border border-gray-300">
+{% extends "layout/admin_layout.html" %}
+{% block content %}
+<h2 class="page-title">Groups and Permissions</h2>
+<div class="table-wrapper">
+  <table class="admin-table">
     <thead>
-      <tr class="bg-gray-100">
-        <th class="border border-gray-300 px-4 py-2">Group Name</th>
-        <th class="border border-gray-300 px-4 py-2">Permissions</th>
+      <tr>
+        <th>Group Name</th>
+        <th>Permissions</th>
       </tr>
     </thead>
     <tbody>
       {% for group in groups %}
-      <tr class="odd:bg-white even:bg-gray-50">
-        <td class="border border-gray-300 px-4 py-2 font-medium">{{group.name}}</td>
-        <td class="border border-gray-300 px-4 py-2">
-          <ul class="list-disc list-inside">
+      <tr class="{% cycle 'odd' 'even' %}">
+        <td class="font-medium">{{ group.name }}</td>
+        <td>
+          <ul class="permission-list">
             {% for permission in group.permissions.all %}
-                <li>{{permission.name}} | {{permission.codename}} </li>
+              <li>{{ permission.name }} | {{ permission.codename }}</li>
             {% empty %}
-                <li class="text-gray-500 font-italic"> No Permission Assigned! </li>
+              <li class="no-permission">No Permission Assigned!</li>
             {% endfor %}
           </ul>
         </td>

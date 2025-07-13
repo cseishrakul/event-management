@@ -1,0 +1,119 @@
+{% extends "layout/layout.html" %} {% load static %} {% block events %}
+
+<section id="about" class="about">
+  <h1 class="heading"><span>about</span> us</h1>
+  <div class="row">
+    <div class="image">
+      <img src="{% static 'images/1.jpg' %}" alt="" />
+    </div>
+    <div class="content">
+      <h3>we will give a very special celebration for you</h3>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+        corporis dolores eum nostrum mollitia.
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur
+        corporis dolores eum nostrum mollitia.
+      </p>
+      <a href="" class="btnn">Contact us</a>
+    </div>
+  </div>
+</section>
+
+
+<section class="review">
+  <h1 class="heading">client's <span>review</span></h1>
+  <div class="review-slider swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+      <div class="swiper-slide box">
+        <i class="fas fa-quote-right"></i>
+        <div class="user">
+          <img src="{%static 'images/2.jpg' %}" alt="" />
+          <div class="user-info">
+            <h3>john deo</h3>
+            <span>happy clients</span>
+          </div>
+        </div>
+        <p>
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Fugit quod
+          tempora rerum inventore commodi illo sunt amet laudantium quibusdam
+          quos est, ipsam temporibus officiis beatae, ut quae repellat neque
+          eum.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact">
+  <h1 class="heading"><span>contact</span> us</h1>
+  <form action="">
+    <div class="inputBox">
+      <input type="text" name="" placeholder="name" id="" />
+      <input type="email" name="" placeholder="email" id="" />
+    </div>
+    <div class="inputBox">
+      <input type="number" name="" placeholder="number" id="" />
+      <input type="text" name="" placeholder="subject" id="" />
+    </div>
+    <textarea
+      name=""
+      placeholder="your message"
+      cols="30"
+      rows="10"
+      id=""
+    ></textarea>
+    <input type="submit" value="send message" class="btnn" />
+  </form>
+</section>
+
+{% endblock %}

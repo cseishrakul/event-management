@@ -1,55 +1,35 @@
-{% extends "layout/layout.html" %}
+{% extends "layout/admin_layout.html" %}
 {% load static %}
-{% block events %}
-<div class="mt-8 w-full md:w-3/4 lg:w-1/2 mx-auto text-white">
-  <h1 class="text-center text-2xl font-bold mb-2">All Categories</h1>
+{% block content %}
+<div class="container">
+  <h1 class="title">All Categories</h1>
   <a href="{% url 'create-category' %}">
-    <button
-      type="submit"
-      class="px-4 py-2 mb-3 bg-green-600 text-white rounded-lg hover:bg-gray-900 transition duration-300 w-full sm:w-auto"
-    >
-      Add Category
-    </button>
+    <button class="btn btn-green">Add Category</button>
   </a>
   <hr />
-  <div class="mt-2">
-    {% if message %}
-    <p class="">{{ message }}</p>
-    {% endif %}
-  </div>
-  <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-center text-white bg-gray-800 rounded-lg">
-      <thead class="text-xs text-gray-300 uppercase bg-gray-900">
+  {% if message %}
+  <p class="message">{{ message }}</p>
+  {% endif %}
+  <div class="table-wrapper">
+    <table>
+      <thead>
         <tr>
-          <th scope="col" class="px-4 py-3">Category</th>
-          <th scope="col" class="px-4 py-3">Description</th>
-          <th scope="col" class="px-4 py-3">Action</th>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
         {% for category in categories %}
-        <tr class="odd:bg-gray-700 even:bg-gray-600 border-b border-gray-700">
-          <td class="px-4 py-4">{{ category.name }}</td>
-          <td class="px-4 py-4">{{ category.description }}</td>
-          <td class="px-4 py-4">
-            <div class="flex justify-center items-center space-x-4">
-              <a
-                href="{% url 'update-category' category.id %}"
-                class="px-4 py-2 bg-yellow-500 text-black rounded-full hover:bg-yellow-400 transition duration-300"
-                >Edit</a
-              >
-              <form
-                action="{% url 'delete-category' category.id %}"
-                method="POST"
-                class="inline-block"
-              >
+        <tr class="{% cycle 'odd' 'even' %}">
+          <td>{{ category.name }}</td>
+          <td>{{ category.description }}</td>
+          <td>
+            <div class="actions">
+              <a href="{% url 'update-category' category.id %}" class="btn btn-yellow">Edit</a>
+              <form action="{% url 'delete-category' category.id %}" method="POST" class="inline-form">
                 {% csrf_token %}
-                <button
-                  type="submit"
-                  class="px-4 py-2 bg-red-600 text-white rounded-full hover:bg-red-500 transition duration-300"
-                >
-                  Delete
-                </button>
+                <button type="submit" class="btn btn-red">Delete</button>
               </form>
             </div>
           </td>
@@ -59,4 +39,4 @@
     </table>
   </div>
 </div>
-{% endblock events %}
+{% endblock content %}
