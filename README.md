@@ -1,5 +1,7 @@
 # 🎉 Event Management System (Django)
 
+![Home Page](screenshots/homepage.png)
+
 ## 📄 Description  
 This is a full-featured **Event Management System** built using **Django's MVT architecture**. It supports multiple user roles including **Admin**, **Organizer**, and **Participant**. Organizers can create and manage events, while participants can browse and attend them. The admin has full control over users, events, and system settings.
 
@@ -31,7 +33,6 @@ This is a full-featured **Event Management System** built using **Django's MVT a
 | Participant | Browse and attend events                    |
 
 ---
-
 ## 🧑‍💻 Local Setup Instructions
 
 To run this project locally, follow these steps:
