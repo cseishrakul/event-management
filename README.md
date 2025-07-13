@@ -61,3 +61,5 @@ python manage.py runserver
 
 # 7. Open in browser
 # Visit: http://127.0.0.1:8000
+
+Demo Explore the live demo here: [Event Management](https://event-management-s73r.onrender.com)
